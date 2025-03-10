@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SQLMini.Klasy;
 using System.Windows.Forms;
 
 namespace SQLMini
@@ -15,6 +8,7 @@ namespace SQLMini
         public Form1()
         {
             InitializeComponent();
+            this.Text = classConfig.context;
         }
     }
 }
