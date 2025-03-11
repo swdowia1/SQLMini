@@ -53,5 +53,10 @@ namespace SQLMini.Klasy
 
             }
         }
+
+        internal static DataTable WypelnijDane(Query selectedRow)
+        {
+            return WypelnijDane(selectedRow.QueryText, selectedRow.POL);
+        }
     }
 }

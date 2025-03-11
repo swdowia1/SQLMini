@@ -64,11 +64,14 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Klasy\classConfig.cs" />
+    <Compile Include="Klasy\classConst.cs" />
     <Compile Include="Klasy\classData.cs" />
     <Compile Include="Klasy\classExtension.cs" />
     <Compile Include="Klasy\classFun.cs" />
     <Compile Include="Klasy\classLog.cs" />
     <Compile Include="Klasy\classMessage.cs" />
+    <Compile Include="Klasy\Query.cs" />
+    <Compile Include="Klasy\Server.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

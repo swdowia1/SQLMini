@@ -5,9 +5,10 @@ namespace SQLMini.Klasy
 {
     public static class classExtension
     {
-        public static void SetStyle(this DataGridView dg, bool zebra = true)
+        public static void SetStyle(this DataGridView dg, bool autoGenerate = true)
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            dg.AutoGenerateColumns = autoGenerate;
             dg.AllowUserToAddRows = false;
             dg.AllowUserToDeleteRows = false;
 
@@ -21,15 +22,7 @@ namespace SQLMini.Klasy
 
 
             dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 224, 192);
-            if (zebra)
-            {
-                dg.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-
-            }
-            else
-                dg.AlternatingRowsDefaultCellStyle = null;
-            dg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-
+            dg.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dg.ReadOnly = true;
         }
 
