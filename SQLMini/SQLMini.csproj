@@ -72,10 +72,19 @@
     <Compile Include="Klasy\classMessage.cs" />
     <Compile Include="Klasy\Query.cs" />
     <Compile Include="Klasy\Server.cs" />
+    <Compile Include="ModalWindow\FormData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModalWindow\FormData.Designer.cs">
+      <DependentUpon>FormData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModalWindow\FormData.resx">
+      <DependentUpon>FormData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -103,8 +112,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ModalWindow\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

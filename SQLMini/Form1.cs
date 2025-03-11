@@ -1,6 +1,6 @@
 ﻿using SQLMini.Klasy;
+using SQLMini.ModalWindow;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows.Forms;
 
 namespace SQLMini
@@ -38,7 +38,11 @@ namespace SQLMini
         private void dgQuery_Click(object sender, System.EventArgs e)
         {
             var SelectedRow = dgQuery.CurrentRow<Query>();
-            DataTable dt = classData.WypelnijDane(SelectedRow);
+
+            using (FormData form = new FormData(SelectedRow))
+            {
+                form.ShowDialog(this);
+            } // 
         }
     }
 }
