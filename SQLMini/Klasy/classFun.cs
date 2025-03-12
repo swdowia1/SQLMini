@@ -39,17 +39,29 @@ namespace SQLMini.Klasy
         {
             return s + "\\pol.txt";
         }
-
+        /// <summary>
+        /// Lista tabel w wybranej bazie
+        /// </summary>
+        /// <param name="pol"></param>
+        /// <returns></returns>
         internal static List<Query> Tabele(string pol)
         {
             List<Query> wynik = new List<Query>();
             try
             {
-                DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
+                string zap = @"SELECT      SCHEMA_NAME(A.schema_id) + '.' +
+       
+          A.Name as Tabela, AVG(B.rows) AS 'Ilosc'
+FROM        sys.objects A
+INNER JOIN sys.partitions B ON A.object_id = B.object_id
+WHERE       A.type = 'U'
+GROUP BY    A.schema_id, A.Name";
+                // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
+                DataTable dt = classData.WypelnijDane(zap, pol);
                 foreach (DataRow item in dt.Rows)
                 {
-                    string tabela = item["TABLE_NAME"].ToString();
-                    Query q = new Query() { POL = pol, QueryText = "select * from " + tabela, Name = tabela };
+                    string tabela = item["Tabela"].ToString();
+                    Query q = new Query() { POL = pol, QueryText = "select * from " + tabela, Name = tabela, Ilosc = int.Parse(item["Ilosc"].ToString()) };
                     wynik.Add(q);
                 }
             }

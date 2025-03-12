@@ -1,6 +1,8 @@
 ﻿using SQLMini.Klasy;
 using SQLMini.ModalWindow;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace SQLMini
@@ -8,6 +10,8 @@ namespace SQLMini
     public partial class Form1 : Form
     {
         List<Server> serwery = new List<Server>();
+        List<Query> dOrg;
+        List<Query> d_filtr;
         public Form1()
         {
             InitializeComponent();
@@ -19,16 +23,10 @@ namespace SQLMini
             dataGridView1.SetStyle(false);
             dgQuery.SetStyle();
             dataGridView1.DataSource = serwery;
+
         }
 
-        private void dataGridView1_Click(object sender, System.EventArgs e)
-        {
-            var SelectedRow = dataGridView1.CurrentRow<Server>();
-            List<Query> zapytania = classFun.Tabele(SelectedRow.Pol);
-            TextForm(zapytania.Count);
-            dgQuery.DataSource = zapytania;
-            dgQuery.Columns[0].Visible = false;
-        }
+
 
         private void TextForm(int count)
         {
@@ -37,12 +35,75 @@ namespace SQLMini
 
         private void dgQuery_Click(object sender, System.EventArgs e)
         {
-            var SelectedRow = dgQuery.CurrentRow<Query>();
 
+
+        }
+
+        private void dgQuery_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var SelectedRow = dgQuery.CurrentRow<Query>();
+            this.Text = ".. ldaowanie danych " + SelectedRow.Name;
             using (FormData form = new FormData(SelectedRow))
             {
                 form.ShowDialog(this);
             } // 
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var SelectedRow = dataGridView1.CurrentRow<Server>();
+            List<Query> zapytania = classFun.Tabele(SelectedRow.Pol);
+            TextForm(zapytania.Count);
+            dgQuery.DataSource = zapytania;
+            dOrg = zapytania;
+            dgQuery.Columns[0].Visible = false;
+        }
+
+        private void btnSearch_Click(object sender, System.EventArgs e)
+        {
+            string searchValue = txtName.Text.ToLower();
+            if (string.IsNullOrEmpty(searchValue))
+            {
+                dgQuery.DataSource = dOrg;
+                return;
+            }
+            int rowIndex = -1;
+
+            List<int> searchid = new List<int>();
+            dgQuery.DataSource = dOrg;
+
+            try
+            {
+                foreach (DataGridViewRow row in dgQuery.Rows)
+                {
+                    for (int i = 1; i < row.Cells.Count; i++)
+                    {
+
+                        if (row.Cells[i].Value.ToString().ToLower().Contains(searchValue))
+                        {
+
+
+
+
+                            rowIndex = row.Index;
+                            searchid.Add(row.Index);
+
+                        }
+                    }
+                }
+
+                searchid = searchid.Distinct().ToList();
+                d_filtr = new List<Query>();
+                foreach (int k in searchid)
+                {
+                    d_filtr.Add(dOrg[k]);
+                }
+                dgQuery.DataSource = d_filtr;
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }

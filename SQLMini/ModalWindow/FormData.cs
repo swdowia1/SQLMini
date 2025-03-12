@@ -11,6 +11,7 @@ namespace SQLMini.ModalWindow
             InitializeComponent();
             dg.SetStyle();
             DataTable dt = classData.WypelnijDane(selectedRow);
+            this.Text = selectedRow.Name + " ilosc:" + dt.Rows.Count;
             dg.DataSource = dt;
         }
     }
