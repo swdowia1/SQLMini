@@ -63,6 +63,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Klasy\CellSelect.cs" />
     <Compile Include="Klasy\classConfig.cs" />
     <Compile Include="Klasy\classConst.cs" />
     <Compile Include="Klasy\classData.cs" />

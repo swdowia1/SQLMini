@@ -28,18 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dg = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dg)).BeginInit();
             this.SuspendLayout();
             // 
             // dg
             // 
+            this.dg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dg.Location = new System.Drawing.Point(0, 0);
+            this.dg.Location = new System.Drawing.Point(0, 42);
             this.dg.Name = "dg";
-            this.dg.Size = new System.Drawing.Size(800, 450);
+            this.dg.Size = new System.Drawing.Size(799, 408);
             this.dg.TabIndex = 0;
+            this.dg.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dg_MouseClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // FormData
             // 
@@ -49,6 +59,7 @@
             this.Controls.Add(this.dg);
             this.Name = "FormData";
             this.Text = "FormData";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dg)).EndInit();
             this.ResumeLayout(false);
 
@@ -57,5 +68,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dg;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
