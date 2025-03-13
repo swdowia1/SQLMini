@@ -23,9 +23,6 @@ namespace SQLMini.Klasy
             get { return ConfigurationManager.AppSettings["zapCatalog"]; }
         }
 
-        public static string ekselCatalog
-        {
-            get { return ConfigurationManager.AppSettings["ekselCatalog"]; }
-        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Text;
 
 namespace SQLMini.Klasy
 {
@@ -74,6 +75,12 @@ GROUP BY    A.schema_id, A.Name";
             }
             return wynik;
 
+        }
+
+        internal static void StringBuilderToFile(StringBuilder sb, string filename)
+        {
+            File.WriteAllText(classConst.KatalogCSV + filename, sb.ToString());
+            classMessage.Show("zapisano do pliku " + filename);
         }
     }
 }
