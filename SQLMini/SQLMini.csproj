@@ -76,6 +76,12 @@
     <Compile Include="Klasy\classMessage.cs" />
     <Compile Include="Klasy\Query.cs" />
     <Compile Include="Klasy\Server.cs" />
+    <Compile Include="ModalWindow\CreatorConn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModalWindow\CreatorConn.Designer.cs">
+      <DependentUpon>CreatorConn.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModalWindow\FormData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModalWindow\CreatorConn.resx">
+      <DependentUpon>CreatorConn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModalWindow\FormData.resx">
       <DependentUpon>FormData.cs</DependentUpon>

@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.btnNewServer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgQuery)).BeginInit();
             this.SuspendLayout();
@@ -95,11 +96,22 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // btnNewServer
+            // 
+            this.btnNewServer.Location = new System.Drawing.Point(21, 19);
+            this.btnNewServer.Name = "btnNewServer";
+            this.btnNewServer.Size = new System.Drawing.Size(171, 23);
+            this.btnNewServer.TabIndex = 5;
+            this.btnNewServer.Text = "Dodaj nowe połączenie";
+            this.btnNewServer.UseVisualStyleBackColor = true;
+            this.btnNewServer.Click += new System.EventHandler(this.btnNewServer_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnNewServer);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
@@ -123,6 +135,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnNewServer;
     }
 }
 

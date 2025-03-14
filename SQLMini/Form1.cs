@@ -112,5 +112,19 @@ namespace SQLMini
                 MessageBox.Show(exc.Message);
             }
         }
+
+        private void btnNewServer_Click(object sender, EventArgs e)
+        {
+            using (CreatorConn form = new CreatorConn())
+            {
+                var result = form.ShowDialog(this);
+                if (result == DialogResult.OK) // check if the user accepted  his input
+                {
+                    string zapytanie = form.wartosc; // obtain our customly-created property's value
+
+                    classMessage.ShowError(zapytanie);
+                }
+            } // 
+        }
     }
 }
