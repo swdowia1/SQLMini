@@ -30,7 +30,12 @@ namespace SQLMini.ModalWindow
 
             AddContextMenuStrip("Kopia wiersz", WierszCSV);
             AddContextMenuStrip("Kopia kolumn", KolumnaCSV);
+            AddContextMenuStrip("Filtr równy", FiltrRowny);
+            AddContextMenuStrip("Filtr like", KolumnaCSV);
         }
+
+
+
         private CellSelect CellPos(object sender)
         {
             ToolStripMenuItem tt = (ToolStripMenuItem)sender;
@@ -55,6 +60,30 @@ namespace SQLMini.ModalWindow
             classMessage.Show($"wiersz {wiersz} kolumna {kolumna}");
 
 
+        }
+        private void FiltrRowny(object sender, EventArgs e)
+        {
+            var cell = CellPos(sender);
+            string value = datatableORG.Rows[cell.wiersz][cell.kolumna].ToString();
+            var type = datatableORG.Columns[cell.kolumna].DataType.Name.ToLower();
+            if (!txtFilter.Text.TrimEnd().EndsWith("and"))
+                txtFilter.Text = WstawFil(type, cell.kolumna, value);
+            else
+                txtFilter.Text += WstawFil(type, cell.kolumna, value);
+        }
+        private string WstawFil(string type, int kolumna, string value)
+        {
+
+            string rresult = dg.Columns[kolumna].Name + "=";
+            switch (type)
+            {
+                case "string":
+                    value = "'" + value + "'"; break;
+                default:
+                    break;
+            }
+
+            return rresult + value;
         }
         //KolumnaCSV
         private void KolumnaCSV(object sender, EventArgs e)
@@ -131,6 +160,33 @@ namespace SQLMini.ModalWindow
             if (classMessage.Pytanie("Czy otworzyc edytor"))
                 Process.Start(classConfig.edytor, filenameorg);
             return;
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            FilterGrid();
+        }
+        private void FilterGrid()
+        {
+            dataviewORG = datatableORG.DefaultView;
+            if (!string.IsNullOrEmpty(txtFilter.Text))
+            {
+                dataviewORG.RowFilter = string.Format(txtFilter.Text);
+            }
+            else
+                dataviewORG.RowFilter = null;
+
+
+
+            dg.DataSource = dataviewORG;
+
+            this.Text = "Filtr ilosc:" + txtFilter.Text + " " + dataviewORG.Count;
+        }
+
+        private void btnFilterClear_Click(object sender, EventArgs e)
+        {
+            txtFilter.Text = "";
+            FilterGrid();
         }
 
         private void AddContextMenuStrip(string caption, EventHandler eh)

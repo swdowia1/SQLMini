@@ -12,9 +12,12 @@ namespace SQLMini
         List<Server> serwery = new List<Server>();
         List<Query> dOrg;
         List<Query> d_filtr;
+        private NotifyIcon notifyIcon;
+        private ContextMenuStrip contextMenu;
         public Form1()
         {
             InitializeComponent();
+
             serwery = classFun.SerwerList();
             this.Text = classConfig.context;
             classLog.LogInfo(this.Text);
@@ -28,16 +31,19 @@ namespace SQLMini
 
 
 
+
+
+
+
+
+
+
         private void TextForm(int count)
         {
             this.Text = "Liczba wierszy " + count.ToString();
         }
 
-        private void dgQuery_Click(object sender, System.EventArgs e)
-        {
 
-
-        }
 
         private void dgQuery_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -52,6 +58,7 @@ namespace SQLMini
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var SelectedRow = dataGridView1.CurrentRow<Server>();
+            classMessage.PopUp("wybrano " + SelectedRow.Opis);
             List<Query> zapytania = classFun.Tabele(SelectedRow.Pol);
             TextForm(zapytania.Count);
             dgQuery.DataSource = zapytania;

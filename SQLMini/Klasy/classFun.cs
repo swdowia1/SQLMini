@@ -50,7 +50,9 @@ namespace SQLMini.Klasy
             List<Query> wynik = new List<Query>();
             try
             {
-                string zap = @"SELECT      SCHEMA_NAME(A.schema_id) + '.' +
+                //SCHEMA_NAME(A.schema_id) + '.' +
+                string zap = @"SELECT      
+
        
           A.Name as Tabela, AVG(B.rows) AS 'Ilosc'
 FROM        sys.objects A
@@ -62,7 +64,7 @@ GROUP BY    A.schema_id, A.Name";
                 foreach (DataRow item in dt.Rows)
                 {
                     string tabela = item["Tabela"].ToString();
-                    Query q = new Query() { POL = pol, QueryText = "select * from " + tabela, Name = tabela, Ilosc = int.Parse(item["Ilosc"].ToString()) };
+                    Query q = new Query() { POL = pol, QueryText = "select top 1000 * from [" + tabela + "]", Name = tabela, Ilosc = int.Parse(item["Ilosc"].ToString()) };
                     wynik.Add(q);
                 }
             }
