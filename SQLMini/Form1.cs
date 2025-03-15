@@ -48,7 +48,7 @@ namespace SQLMini
         private void dgQuery_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var SelectedRow = dgQuery.CurrentRow<Query>();
-            this.Text = ".. ldaowanie danych " + SelectedRow.Name;
+
             using (FormData form = new FormData(SelectedRow))
             {
                 form.ShowDialog(this);
@@ -122,7 +122,8 @@ namespace SQLMini
                 {
                     string zapytanie = form.wartosc; // obtain our customly-created property's value
 
-                    classMessage.ShowError(zapytanie);
+                    serwery = classFun.SerwerList();
+                    dataGridView1.DataSource = serwery;
                 }
             } // 
         }

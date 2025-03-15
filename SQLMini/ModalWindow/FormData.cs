@@ -21,12 +21,15 @@ namespace SQLMini.ModalWindow
             _selectedRow = selectedRow;
             dg.SetStyle();
             datatableORG = classData.WypelnijDane(selectedRow);
+
             if (datatableORG != null)
+            {
                 this.Text = selectedRow.Name + " ilosc:" + datatableORG.Rows.Count;
 
-            dataviewORG = datatableORG.DefaultView;
-            dg.DataSource = dataviewORG;
+                dataviewORG = datatableORG.DefaultView;
+                dg.DataSource = dataviewORG;
 
+            }
 
             AddContextMenuStrip("Kopia wiersz", WierszCSV);
             AddContextMenuStrip("Kopia kolumn", KolumnaCSV);
@@ -189,6 +192,27 @@ namespace SQLMini.ModalWindow
             FilterGrid();
         }
 
+        private void dg_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1 || e.ColumnIndex == -1)
+                return;
+            if (dg.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                string val = dg.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+
+                DoSchowka(val);
+            }
+        }
+
+        private void DoSchowka(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                Clipboard.SetText(value);
+                classMessage.PopUp("zapisano do schowka " + value);
+            }
+
+        }
         private void AddContextMenuStrip(string caption, EventHandler eh)
         {
             int ilosc = contextMenuStrip1.Items.Count;

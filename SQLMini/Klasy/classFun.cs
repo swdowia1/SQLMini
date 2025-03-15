@@ -61,6 +61,7 @@ WHERE       A.type = 'U'
 GROUP BY    A.schema_id, A.Name";
                 // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
                 DataTable dt = classData.WypelnijDane(zap, pol);
+
                 foreach (DataRow item in dt.Rows)
                 {
                     string tabela = item["Tabela"].ToString();

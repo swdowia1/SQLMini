@@ -48,6 +48,7 @@
             this.dg.Name = "dg";
             this.dg.Size = new System.Drawing.Size(799, 408);
             this.dg.TabIndex = 0;
+            this.dg.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_CellClick);
             this.dg.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dg_MouseClick);
             // 
             // contextMenuStrip1
