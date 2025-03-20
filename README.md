@@ -1,21 +1,23 @@
-## Spis terści
-* [Opis](#opis)
-* [Połączenie](#pol)
-* [Setup](#setup)
+# Projekt XYZ
 
-## Opis
-This project is simple Lorem ipsum dolor generator.
-	
-## Połączenie
-Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
-* Ament library version: 999
-	
-## Setup
-To run this project, install it locally using npm:
+## Spis treści
+ [Opis projektu](#opis-projektu)
+ [Wymagania](#wymagania)
+ [Instalacja](#instalacja)
+ [Konfiguracja](#konfiguracja)
+ [Użycie](#użycie)
 
-```
-$ cd ../lorem
-$ npm install
-$ npm start
+## Opis projektu
+Aplikacj do podglądu tabel w bazie ms sql
+
+## Wymagania
+Framework 4.7
+
+## Instalacja
+W katalogu aplikacji
+
+## Konfiguracja
+Informacje o konfiguracji i dostosowaniu projektu.
+
+## Użycie
+Przykłady użycia i uruchamiania aplikacji.
