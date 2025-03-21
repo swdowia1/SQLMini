@@ -1,4 +1,5 @@
-# Projekt XYZ
+# SQL mini
+Aplikacja do podglądu tabel w bazie
 
 ## Spis treści
  [Opis projektu](#opis-projektu)
