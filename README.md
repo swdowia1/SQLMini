@@ -1,5 +1,5 @@
-# SQL mini
-Aplikacja do podglądu tabel w bazie
+# Polish Validators for C#
+Library for validation of Polish NIP, PESEL, REGON for C# (.NET Standard)
 
 ## Spis treści
  [Opis projektu](#opis-projektu)
