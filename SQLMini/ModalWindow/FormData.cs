@@ -1,8 +1,10 @@
 ﻿using SQLMini.Klasy;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -160,7 +162,7 @@ namespace SQLMini.ModalWindow
             File.WriteAllText(filenameorg, dataObject.GetText(TextDataFormat.CommaSeparatedValue));
             dg.ClearSelection();
 
-            if (classMessage.Pytanie("Czy otworzyc edytor"))
+            if (classMessage.Question("Czy otworzyc edytor"))
                 Process.Start(classConfig.edytor, filenameorg);
             return;
         }
@@ -171,19 +173,59 @@ namespace SQLMini.ModalWindow
         }
         private void FilterGrid()
         {
-            dataviewORG = datatableORG.DefaultView;
-            if (!string.IsNullOrEmpty(txtFilter.Text))
+            string filter = txtFilter.Text;
+            dg.DataSource = datatableORG;
+            try
             {
-                dataviewORG.RowFilter = string.Format(txtFilter.Text);
+
+                if (!filter.Contains("="))
+                {
+                    List<int> searchid = new List<int>();
+                    foreach (DataGridViewRow row in dg.Rows)
+                    {
+                        for (int i = 0; i < row.Cells.Count; i++)
+                        {
+
+                            if (row.Cells[i].Value.ToString().ToLower().Contains(filter))
+                            {
+
+
+
+
+
+                                searchid.Add(row.Index);
+
+                            }
+                        }
+                    }
+                    searchid = searchid.Distinct().ToList();
+                    d_filtr = datatableORG.Clone();
+                    foreach (var item in searchid)
+                    {
+                        d_filtr.ImportRow(datatableORG.Rows[item]);
+                    }
+                    dg.DataSource = d_filtr;
+                    return;
+                }
+                dataviewORG = datatableORG.DefaultView;
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    dataviewORG.RowFilter = string.Format(filter);
+                }
+                else
+                    dataviewORG.RowFilter = null;
+
+
+
+                dg.DataSource = dataviewORG;
+
+                this.Text = "Filtr ilosc:" + txtFilter.Text + " " + dataviewORG.Count;
             }
-            else
-                dataviewORG.RowFilter = null;
+            catch (Exception)
+            {
 
 
-
-            dg.DataSource = dataviewORG;
-
-            this.Text = "Filtr ilosc:" + txtFilter.Text + " " + dataviewORG.Count;
+            }
         }
 
         private void btnFilterClear_Click(object sender, EventArgs e)

@@ -16,9 +16,9 @@ namespace SQLMini.Klasy
             popup.ContentText = tresc;
             popup.Popup(); // show
         }
-        internal static bool Pytanie(string v)
+        internal static bool Question(string question)
         {
-            DialogResult dialogResult = MessageBox.Show(v, "Pytanie", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show(question, "Pytanie", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                 return true;

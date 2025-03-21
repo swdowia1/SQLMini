@@ -30,6 +30,7 @@ namespace SQLMini.ModalWindow
                     txtNameCatalog.Text = txtDatabase.Text;
                     txtDescribe.Text = "baza " + txtDatabase.Text;
 
+
                 }
                 catch (Exception ex)
                 {
