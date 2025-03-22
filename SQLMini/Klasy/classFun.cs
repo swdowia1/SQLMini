@@ -51,21 +51,30 @@ namespace SQLMini.Klasy
             try
             {
                 //SCHEMA_NAME(A.schema_id) + '.' +
-                string zap = @"SELECT      
-
-       
-          A.Name as Tabela, AVG(B.rows) AS 'Ilosc'
-FROM        sys.objects A
+                string zap = @"SELECT       
+    A.Name AS Tabela, 
+    AVG(B.rows) AS Ilosc, 
+    COUNT(DISTINCT C.column_id) AS LiczbaKolumn
+FROM sys.objects A
 INNER JOIN sys.partitions B ON A.object_id = B.object_id
-WHERE       A.type = 'U'
-GROUP BY    A.schema_id, A.Name";
+LEFT JOIN sys.columns C ON A.object_id = C.object_id
+WHERE A.type = 'U'
+GROUP BY A.schema_id, A.Name, A.object_id
+ORDER BY A.Name";
                 // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
                 DataTable dt = classData.WypelnijDane(zap, pol);
 
                 foreach (DataRow item in dt.Rows)
                 {
                     string tabela = item["Tabela"].ToString();
-                    Query q = new Query() { POL = pol, QueryText = "select top 1000 * from [" + tabela + "]", Name = tabela, Ilosc = int.Parse(item["Ilosc"].ToString()) };
+                    Query q = new Query()
+                    {
+                        POL = pol,
+                        QueryText = "select top 1000 * from [" + tabela + "]",
+                        Name = tabela,
+                        Ilosc = int.Parse(item["Ilosc"].ToString()),
+                        LiczbaKolumn = int.Parse(item["LiczbaKolumn"].ToString())
+                    };
                     wynik.Add(q);
                 }
             }

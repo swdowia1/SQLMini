@@ -8,10 +8,6 @@ namespace SQLMini.Klasy
         public static void PopUp(string tresc, int wielkosc = 100)
         {
             PopupNotifier popup = new PopupNotifier();
-            //if (tresc.Length > 30)
-            //{
-            //    tresc = tresc.Substring(tresc.Length - wielkosc);
-            //}
             popup.TitleText = "Informacja";
             popup.ContentText = tresc;
             popup.Popup(); // show
@@ -34,8 +30,7 @@ namespace SQLMini.Klasy
         internal static void ShowError(string value, string Title = "Error")
         {
 
-            MessageBox.Show(value, Title,
-      MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(value, Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
