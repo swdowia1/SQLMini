@@ -13,7 +13,7 @@ workstation id=aaaswsw.mssql.somee.com;packet size=4096;user id=swdowia1_SQLLogi
  2 linia połączenie do bazy<br />
 
  ## W planach
- - w każdym katlogu serwerów dodać specyficzne zapytania sql
+ - w każdym katalogu serwerów dodać specyficzne zapytania sql
  - wykorzystać RabbitMQ w cely kolejkowania "długich: zadań
 
 
