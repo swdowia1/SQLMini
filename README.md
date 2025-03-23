@@ -1,24 +1,9 @@
 # SQL mini
 Aplikacja do podglądu tabel w bazie
 
-## Spis treści
- [Opis projektu](#opis-projektu)
- [Wymagania](#wymagania)
- [Instalacja](#instalacja)
- [Konfiguracja](#konfiguracja)
- [Użycie](#użycie)
+## Opis
+![image](https://github.com/user-attachments/assets/40517b5d-54d0-4437-8070-3d0b31db3b93)
 
-## Opis projektu
-Aplikacj do podglądu tabel w bazie ms sql
+w katalogu aplikacji znajduje się katalog "Serwery"
 
-## Wymagania
-Framework 4.7
 
-## Instalacja
-W katalogu aplikacji
-
-## Konfiguracja
-Informacje o konfiguracji i dostosowaniu projektu.
-
-## Użycie
-Przykłady użycia i uruchamiania aplikacji.
