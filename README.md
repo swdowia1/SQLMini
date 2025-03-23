@@ -14,6 +14,6 @@ workstation id=aaaswsw.mssql.somee.com;packet size=4096;user id=swdowia1_SQLLogi
 
  ## W planach
  - w każdym katalogu serwerów dodać specyficzne zapytania sql
- - wykorzystać RabbitMQ w cely kolejkowania "długich: zadań
+ - wykorzystać RabbitMQ w celu kolejkowania "długich: zadań
 
 
