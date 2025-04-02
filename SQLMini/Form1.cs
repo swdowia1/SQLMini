@@ -59,7 +59,7 @@ namespace SQLMini
         {
             var SelectedRow = dataGridView1.CurrentRow<Server>();
             classMessage.PopUp("wybrano " + SelectedRow.Opis);
-            List<Query> zapytania = classFun.Tabele(SelectedRow.Pol);
+            List<Query> zapytania = classFun.Tabele(SelectedRow.Pol,SelectedRow.KatalogSQL);
             TextForm(zapytania.Count);
             dgQuery.DataSource = zapytania;
             dOrg = zapytania;

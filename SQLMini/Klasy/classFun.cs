@@ -21,7 +21,7 @@ namespace SQLMini.Klasy
                 {
                     string polPlik = PolPlik(s);
                     string[] linie = File.ReadAllLines(polPlik);
-                    Server ss = new Server(linie);
+                    Server ss = new Server(linie,s);
                     wynik.Add(ss);
                 }
 
@@ -45,7 +45,7 @@ namespace SQLMini.Klasy
         /// </summary>
         /// <param name="pol"></param>
         /// <returns></returns>
-        internal static List<Query> Tabele(string pol)
+        internal static List<Query> Tabele(string pol,string katalogsql)
         {
             List<Query> wynik = new List<Query>();
             try
@@ -74,6 +74,19 @@ ORDER BY A.Name";
                         Name = tabela,
                         Ilosc = int.Parse(item["Ilosc"].ToString()),
                         LiczbaKolumn = int.Parse(item["LiczbaKolumn"].ToString())
+                    };
+                    wynik.Add(q);
+                }
+                string[] pliksql = Directory.GetFiles(katalogsql, "*.sql");
+                foreach (string p in pliksql)
+                {
+                    Query q = new Query()
+                    {
+                        POL = pol,
+                        QueryText = File.ReadAllText(p),
+                        Name = Path.GetFileName(p),
+                        Ilosc = 0,
+                        LiczbaKolumn = 0
                     };
                     wynik.Add(q);
                 }
