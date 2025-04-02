@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace SQLMini.Klasy
@@ -98,7 +99,7 @@ ORDER BY A.Name";
 
 
             }
-            return wynik;
+            return wynik.OrderBy(k=>k.LiczbaKolumn).ToList();
 
         }
 
