@@ -12,6 +12,16 @@ workstation id=aaaswsw.mssql.somee.com;packet size=4096;user id=swdowia1_SQLLogi
  1 linia opis połączenia<br />
  2 linia połączenie do bazy<br />
 
+ ## dodanie połączenia
+ Uruchomić plik katalog bat
+ - cd SQLMini\bin\Debug
+ - mkdir Serwery
+ - cd Serwery
+ - mkdir ang
+ - tworzy plik **pol.txt** zawiera nazwa połączenia i samo połączenie
+
+
+
  ## W planach
  - w każdym katalogu serwerów dodać specyficzne zapytania sql
  - wykorzystać RabbitMQ w celu kolejkowania "długich: zadań
