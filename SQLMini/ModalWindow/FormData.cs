@@ -15,8 +15,9 @@ namespace SQLMini.ModalWindow
     public partial class FormData : Form
     {
         int ex, ey;
-        private RichTextBox richTextBox = new RichTextBox();
-        private string[] keywords = { "SELECT", "FROM", "WHERE", "INSERT", "UPDATE", "DELETE", "JOIN", "INNER", "LEFT", "RIGHT", "ON", "ORDER", "GROUP", "BY", "HAVING" };
+    
+        private string[] keywords = { "SELECT", "FROM", "WHERE", "INSERT", "UPDATE", "DELETE", "JOIN", "INNER", "LEFT", "RIGHT", "ON", "ORDER", "GROUP", "BY", "HAVING",
+        "LIKE","TOP"};
 
         DataTable datatableORG;
         DataView dataviewORG;
@@ -26,31 +27,16 @@ namespace SQLMini.ModalWindow
         {
             InitializeComponent();
             _selectedRow = selectedRow;
-            richTextBox.Height = 200;
-            richTextBox.Width = 200;
 
-            richTextBox.Font = new Font("Consolas", 12);
-            richTextBox.TextChanged += RichTextBox_TextChanged;
-            richTextBox.Text = _selectedRow.QueryText;
-            RichTextBox_TextChanged(null,null);
-            tabPage2.Controls.Add(richTextBox);
 
-            //this.Shown += (s, e) => {
-            //    Application.DoEvents(); // Upewnia się, że interfejs został załadowany
-            //    HighlightSyntax();
-            //};
-           
+            richTextBox1.Font = new Font("Consolas", 12);
+            richTextBox1.TextChanged += RichTextBox_TextChanged;
+            richTextBox1.Text = _selectedRow.QueryText;
+            RichTextBox_TextChanged(null, null);
+
+
             dg.SetStyle();
-            datatableORG = classData.WypelnijDane(selectedRow);
-
-            if (datatableORG != null)
-            {
-                this.Text = selectedRow.Name + " ilosc:" + datatableORG.Rows.Count;
-
-                dataviewORG = datatableORG.DefaultView;
-                dg.DataSource = dataviewORG;
-
-            }
+            FillGrid();
 
             AddContextMenuStrip("Kopia wiersz", WierszCSV);
             AddContextMenuStrip("Kopia kolumn", KolumnaCSV);
@@ -58,16 +44,30 @@ namespace SQLMini.ModalWindow
             AddContextMenuStrip("Filtr like", KolumnaCSV);
         }
 
+        private void FillGrid()
+        {
+            datatableORG = classData.WypelnijDane(_selectedRow);
+
+            if (datatableORG != null)
+            {
+                this.Text = _selectedRow.Name + " ilosc:" + datatableORG.Rows.Count;
+
+                dataviewORG = datatableORG.DefaultView;
+                dg.DataSource = dataviewORG;
+
+            }
+        }
+
         private void RichTextBox_TextChanged(object sender, EventArgs e)
         {
-            int selectionStart = richTextBox.SelectionStart;
-            richTextBox.SuspendLayout();
+            int selectionStart = richTextBox1.SelectionStart;
+            richTextBox1.SuspendLayout();
 
             // Resetowanie kolorów
-            richTextBox.SelectAll();
-            richTextBox.SelectionColor = Color.Black;
-            richTextBox.SelectionStart = selectionStart;
-            richTextBox.SelectionLength = 0;
+            richTextBox1.SelectAll();
+            richTextBox1.SelectionColor = Color.Black;
+            richTextBox1.SelectionStart = selectionStart;
+            richTextBox1.SelectionLength = 0;
 
             // Podświetlanie słów kluczowych SQL
             foreach (string keyword in keywords)
@@ -78,36 +78,37 @@ namespace SQLMini.ModalWindow
             // Podświetlanie komentarzy (--) oraz łańcuchów znaków ('...')
             HighlightRegex(@"--.*", Color.Green);  // Komentarze SQL
             HighlightRegex(@"'[^']*'", Color.Brown);  // Stringi w SQL
+            HighlightRegex(@"\b\d+\b", Color.YellowGreen);
 
-            richTextBox.ResumeLayout();
+            richTextBox1.ResumeLayout();
         }
 
         private void HighlightWord(string word, Color color)
         {
             Regex regex = new Regex(@"\b" + word + @"\b", RegexOptions.IgnoreCase);
-            MatchCollection matches = regex.Matches(richTextBox.Text);
+            MatchCollection matches = regex.Matches(richTextBox1.Text);
 
             foreach (Match match in matches)
             {
-                richTextBox.Select(match.Index, match.Length);
-                richTextBox.SelectionColor = color;
+                richTextBox1.Select(match.Index, match.Length);
+                richTextBox1.SelectionColor = color;
             }
-            richTextBox.SelectionStart = richTextBox.Text.Length;
-            richTextBox.SelectionColor = Color.Black;
+            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            richTextBox1.SelectionColor = Color.Black;
         }
 
         private void HighlightRegex(string pattern, Color color)
         {
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
-            MatchCollection matches = regex.Matches(richTextBox.Text);
+            MatchCollection matches = regex.Matches(richTextBox1.Text);
 
             foreach (Match match in matches)
             {
-                richTextBox.Select(match.Index, match.Length);
-                richTextBox.SelectionColor = color;
+                richTextBox1.Select(match.Index, match.Length);
+                richTextBox1.SelectionColor = color;
             }
-            richTextBox.SelectionStart = richTextBox.Text.Length;
-            richTextBox.SelectionColor = Color.Black;
+            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            richTextBox1.SelectionColor = Color.Black;
         }
 
         private CellSelect CellPos(object sender)
@@ -325,9 +326,13 @@ namespace SQLMini.ModalWindow
 
         }
 
-      
+        private void btnExecute_Click(object sender, EventArgs e)
+        {
+            _selectedRow.QueryText = richTextBox1.Text;
+            FillGrid();
+            tabControl1.SelectedIndex = 0;
+        }
 
-      
         private void AddContextMenuStrip(string caption, EventHandler eh)
         {
             int ilosc = contextMenuStrip1.Items.Count;
