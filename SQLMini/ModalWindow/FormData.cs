@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace SQLMini.ModalWindow
@@ -13,6 +15,9 @@ namespace SQLMini.ModalWindow
     public partial class FormData : Form
     {
         int ex, ey;
+        private RichTextBox richTextBox = new RichTextBox();
+        private string[] keywords = { "SELECT", "FROM", "WHERE", "INSERT", "UPDATE", "DELETE", "JOIN", "INNER", "LEFT", "RIGHT", "ON", "ORDER", "GROUP", "BY", "HAVING" };
+
         DataTable datatableORG;
         DataView dataviewORG;
         DataTable d_filtr;
@@ -21,6 +26,20 @@ namespace SQLMini.ModalWindow
         {
             InitializeComponent();
             _selectedRow = selectedRow;
+            richTextBox.Height = 200;
+            richTextBox.Width = 200;
+
+            richTextBox.Font = new Font("Consolas", 12);
+            richTextBox.TextChanged += RichTextBox_TextChanged;
+            richTextBox.Text = _selectedRow.QueryText;
+            RichTextBox_TextChanged(null,null);
+            tabPage2.Controls.Add(richTextBox);
+
+            //this.Shown += (s, e) => {
+            //    Application.DoEvents(); // Upewnia się, że interfejs został załadowany
+            //    HighlightSyntax();
+            //};
+           
             dg.SetStyle();
             datatableORG = classData.WypelnijDane(selectedRow);
 
@@ -39,7 +58,57 @@ namespace SQLMini.ModalWindow
             AddContextMenuStrip("Filtr like", KolumnaCSV);
         }
 
+        private void RichTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int selectionStart = richTextBox.SelectionStart;
+            richTextBox.SuspendLayout();
 
+            // Resetowanie kolorów
+            richTextBox.SelectAll();
+            richTextBox.SelectionColor = Color.Black;
+            richTextBox.SelectionStart = selectionStart;
+            richTextBox.SelectionLength = 0;
+
+            // Podświetlanie słów kluczowych SQL
+            foreach (string keyword in keywords)
+            {
+                HighlightWord(keyword, Color.Blue);
+            }
+
+            // Podświetlanie komentarzy (--) oraz łańcuchów znaków ('...')
+            HighlightRegex(@"--.*", Color.Green);  // Komentarze SQL
+            HighlightRegex(@"'[^']*'", Color.Brown);  // Stringi w SQL
+
+            richTextBox.ResumeLayout();
+        }
+
+        private void HighlightWord(string word, Color color)
+        {
+            Regex regex = new Regex(@"\b" + word + @"\b", RegexOptions.IgnoreCase);
+            MatchCollection matches = regex.Matches(richTextBox.Text);
+
+            foreach (Match match in matches)
+            {
+                richTextBox.Select(match.Index, match.Length);
+                richTextBox.SelectionColor = color;
+            }
+            richTextBox.SelectionStart = richTextBox.Text.Length;
+            richTextBox.SelectionColor = Color.Black;
+        }
+
+        private void HighlightRegex(string pattern, Color color)
+        {
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            MatchCollection matches = regex.Matches(richTextBox.Text);
+
+            foreach (Match match in matches)
+            {
+                richTextBox.Select(match.Index, match.Length);
+                richTextBox.SelectionColor = color;
+            }
+            richTextBox.SelectionStart = richTextBox.Text.Length;
+            richTextBox.SelectionColor = Color.Black;
+        }
 
         private CellSelect CellPos(object sender)
         {
@@ -255,6 +324,10 @@ namespace SQLMini.ModalWindow
             }
 
         }
+
+      
+
+      
         private void AddContextMenuStrip(string caption, EventHandler eh)
         {
             int ilosc = contextMenuStrip1.Items.Count;
