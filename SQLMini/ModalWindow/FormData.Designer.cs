@@ -54,10 +54,9 @@
             // 
             // btnCSV
             // 
-            this.btnCSV.Location = new System.Drawing.Point(951, 15);
-            this.btnCSV.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCSV.Location = new System.Drawing.Point(713, 12);
             this.btnCSV.Name = "btnCSV";
-            this.btnCSV.Size = new System.Drawing.Size(100, 28);
+            this.btnCSV.Size = new System.Drawing.Size(75, 23);
             this.btnCSV.TabIndex = 2;
             this.btnCSV.Text = "CSV";
             this.btnCSV.UseVisualStyleBackColor = true;
@@ -65,18 +64,16 @@
             // 
             // txtFilter
             // 
-            this.txtFilter.Location = new System.Drawing.Point(17, 15);
-            this.txtFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.txtFilter.Location = new System.Drawing.Point(13, 12);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(419, 22);
+            this.txtFilter.Size = new System.Drawing.Size(315, 20);
             this.txtFilter.TabIndex = 3;
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(468, 10);
-            this.btnFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFilter.Location = new System.Drawing.Point(351, 8);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(100, 28);
+            this.btnFilter.Size = new System.Drawing.Size(75, 23);
             this.btnFilter.TabIndex = 4;
             this.btnFilter.Text = "Filtr";
             this.btnFilter.UseVisualStyleBackColor = true;
@@ -84,10 +81,9 @@
             // 
             // btnFilterClear
             // 
-            this.btnFilterClear.Location = new System.Drawing.Point(604, 9);
-            this.btnFilterClear.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFilterClear.Location = new System.Drawing.Point(453, 7);
             this.btnFilterClear.Name = "btnFilterClear";
-            this.btnFilterClear.Size = new System.Drawing.Size(100, 28);
+            this.btnFilterClear.Size = new System.Drawing.Size(75, 23);
             this.btnFilterClear.TabIndex = 5;
             this.btnFilterClear.Text = "Czysc filtr";
             this.btnFilterClear.UseVisualStyleBackColor = true;
@@ -100,21 +96,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(3, 47);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControl1.Location = new System.Drawing.Point(2, 38);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1067, 503);
+            this.tabControl1.Size = new System.Drawing.Size(800, 409);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dg);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(1059, 474);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Size = new System.Drawing.Size(792, 383);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Dane";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -123,23 +117,22 @@
             // 
             this.dg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dg.Location = new System.Drawing.Point(4, 4);
-            this.dg.Margin = new System.Windows.Forms.Padding(4);
+            this.dg.Location = new System.Drawing.Point(3, 3);
             this.dg.Name = "dg";
             this.dg.RowHeadersWidth = 51;
-            this.dg.Size = new System.Drawing.Size(1051, 466);
+            this.dg.Size = new System.Drawing.Size(786, 377);
             this.dg.TabIndex = 0;
             this.dg.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_CellClick);
+            this.dg.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dg_MouseClick);
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.richTextBox1);
             this.tabPage2.Controls.Add(this.btnExecute);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(1059, 474);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Size = new System.Drawing.Size(792, 383);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Zapytanie";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -148,18 +141,18 @@
             // 
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.Location = new System.Drawing.Point(10, 7);
+            this.richTextBox1.Location = new System.Drawing.Point(8, 6);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(1034, 238);
+            this.richTextBox1.Size = new System.Drawing.Size(776, 194);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(10, 252);
-            this.btnExecute.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExecute.Location = new System.Drawing.Point(8, 205);
             this.btnExecute.Name = "btnExecute";
-            this.btnExecute.Size = new System.Drawing.Size(100, 28);
+            this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 0;
             this.btnExecute.Text = "Wykonaj";
             this.btnExecute.UseVisualStyleBackColor = true;
@@ -167,15 +160,14 @@
             // 
             // FormData
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnFilterClear);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.txtFilter);
             this.Controls.Add(this.btnCSV);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormData";
             this.Text = "FormData";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

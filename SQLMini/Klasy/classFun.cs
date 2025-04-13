@@ -64,7 +64,25 @@ GROUP BY A.schema_id, A.Name, A.object_id
 ORDER BY A.Name";
                 // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
                 DataTable dt = classData.WypelnijDane(zap, pol);
+                /*
+                 * SELECT 
+    name AS ProcedureName
+FROM 
+    sys.procedures
+ORDER BY 
+    name;
 
+                 */
+
+                string zapproc = @"SELECT 
+    name AS ProcedureName
+FROM 
+    sys.procedures
+where name like 'Get%'
+ORDER BY 
+    name;";
+                // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
+                DataTable dtProc = classData.WypelnijDane(zapproc, pol);
                 foreach (DataRow item in dt.Rows)
                 {
                     string tabela = item["Tabela"].ToString();
@@ -75,6 +93,21 @@ ORDER BY A.Name";
                         Name = tabela,
                         Ilosc = int.Parse(item["Ilosc"].ToString()),
                         LiczbaKolumn = int.Parse(item["LiczbaKolumn"].ToString())
+                    };
+                    wynik.Add(q);
+                }
+
+               
+                foreach (DataRow item in dtProc.Rows)
+                {
+                    string tabela = item["Wartosc"].ToString();
+                    Query q = new Query()
+                    {
+                        POL = pol,
+                        QueryText = tabela,
+                        Name = tabela,
+                        Ilosc =0,
+                        LiczbaKolumn = 0
                     };
                     wynik.Add(q);
                 }

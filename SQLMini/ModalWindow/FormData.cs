@@ -30,9 +30,9 @@ namespace SQLMini.ModalWindow
 
 
             richTextBox1.Font = new Font("Consolas", 12);
-            richTextBox1.TextChanged += RichTextBox_TextChanged;
+            //richTextBox1.TextChanged += RichTextBox_TextChanged;
             richTextBox1.Text = _selectedRow.QueryText;
-            RichTextBox_TextChanged(null, null);
+            RichTextBox_TextChanged();
 
 
             dg.SetStyle();
@@ -58,7 +58,7 @@ namespace SQLMini.ModalWindow
             }
         }
 
-        private void RichTextBox_TextChanged(object sender, EventArgs e)
+        private void RichTextBox_TextChanged(object sender=null, EventArgs e=null)
         {
             int selectionStart = richTextBox1.SelectionStart;
             richTextBox1.SuspendLayout();
@@ -166,7 +166,7 @@ namespace SQLMini.ModalWindow
             var cell = CellPos(sender);
 
 
-            classMessage.Show($"kolumna{cell.kolumna}");
+        
 
 
             StringBuilder sb = new StringBuilder();
@@ -221,7 +221,7 @@ namespace SQLMini.ModalWindow
         private void btnCSV_Click(object sender, EventArgs e)
         {
             string filename = classConst.KatalogCSV + "test.csv";
-            string filenameorg = classConst.KatalogCSV + _selectedRow.Name + ".csv";
+            string filenameorg = classConst.KatalogCSV + _selectedRow.Name.Replace(" ","_") + ".csv";
             dg.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             // Select all the cells
             dg.SelectAll();
