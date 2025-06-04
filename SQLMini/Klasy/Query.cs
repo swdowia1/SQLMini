@@ -7,5 +7,6 @@
         public int Ilosc { get; set; }
         public int LiczbaKolumn { get; set; }
         public string QueryText { get; set; }
+        public string Typ { get; set; }
     }
 }

@@ -64,15 +64,24 @@ GROUP BY A.schema_id, A.Name, A.object_id
 ORDER BY A.Name";
                 // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
                 DataTable dt = classData.WypelnijDane(zap, pol);
-                /*
-                 * SELECT 
-    name AS ProcedureName
-FROM 
-    sys.procedures
-ORDER BY 
-    name;
+            
 
-                 */
+               
+                foreach (DataRow item in dt.Rows)
+                {
+                    string tabela = item["Tabela"].ToString();
+                    Query q = new Query()
+                    {
+                        POL = pol,
+                        QueryText = "select top 1000 * from [" + tabela + "]",
+                        Name = tabela,
+                        Ilosc = int.Parse(item["Ilosc"].ToString()),
+                        LiczbaKolumn = int.Parse(item["LiczbaKolumn"].ToString()),
+                        Typ="Tabela"
+
+                    };
+                    wynik.Add(q);
+                }
 
                 string zapproc = @"SELECT 
     name AS ProcedureName
@@ -83,21 +92,7 @@ ORDER BY
     name;";
                 // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
                 DataTable dtProc = classData.WypelnijDane(zapproc, pol);
-                foreach (DataRow item in dt.Rows)
-                {
-                    string tabela = item["Tabela"].ToString();
-                    Query q = new Query()
-                    {
-                        POL = pol,
-                        QueryText = "select top 1000 * from [" + tabela + "]",
-                        Name = tabela,
-                        Ilosc = int.Parse(item["Ilosc"].ToString()),
-                        LiczbaKolumn = int.Parse(item["LiczbaKolumn"].ToString())
-                    };
-                    wynik.Add(q);
-                }
 
-               
                 foreach (DataRow item in dtProc.Rows)
                 {
                     string tabela = item["Wartosc"].ToString();
@@ -107,7 +102,8 @@ ORDER BY
                         QueryText = tabela,
                         Name = tabela,
                         Ilosc =0,
-                        LiczbaKolumn = 0
+                        LiczbaKolumn = 0,
+                        Typ="Procedura"
                     };
                     wynik.Add(q);
                 }
@@ -120,7 +116,8 @@ ORDER BY
                         QueryText = File.ReadAllText(p),
                         Name = Path.GetFileName(p),
                         Ilosc = 0,
-                        LiczbaKolumn = 0
+                        LiczbaKolumn = 0,
+                        Typ="Zapytanie SQL"
                     };
                     wynik.Add(q);
                 }

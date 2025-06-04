@@ -2,7 +2,11 @@
 using SQLMini.ModalWindow;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace SQLMini
@@ -10,6 +14,7 @@ namespace SQLMini
     public partial class Form1 : Form
     {
         List<Server> serwery = new List<Server>();
+        Server SelectedRow;
         List<Query> dOrg;
         List<Query> d_filtr;
         private NotifyIcon notifyIcon;
@@ -57,7 +62,7 @@ namespace SQLMini
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var SelectedRow = dataGridView1.CurrentRow<Server>();
+            SelectedRow = dataGridView1.CurrentRow<Server>();
             classMessage.PopUp("wybrano " + SelectedRow.Opis);
             List<Query> zapytania = classFun.Tabele(SelectedRow.Pol,SelectedRow.KatalogSQL);
             TextForm(zapytania.Count);
@@ -126,6 +131,36 @@ namespace SQLMini
                     dataGridView1.DataSource = serwery;
                 }
             } // 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string path=SelectedRow.KatalogSQL;
+            if (Directory.Exists(path))
+            {
+                Process.Start("explorer.exe", path);
+            }
+            else
+            {
+                MessageBox.Show("Katalog nie istnieje.");
+            }
+        }
+
+        private void btnConnProperty_Click(object sender, EventArgs e)
+        {
+            string pol = SelectedRow.Pol;
+            var builder = new SqlConnectionStringBuilder(pol);
+            StringBuilder sb = new StringBuilder();
+         
+            string eol = classConst.EOL;
+            sb.AppendLine(pol);
+            sb.Append("Serwer\t\t:" + builder.DataSource+eol);
+            sb.Append("Baza danych\t:" + builder.InitialCatalog + eol);
+            sb.Append("Użytkownik\t:" + builder.UserID + eol);
+            sb.Append("Hasło\t\t:" + builder.Password + eol);
+            File.WriteAllText("dane.txt", sb.ToString());
+            Process.Start(classConfig.edytor, "dane.txt");
+
         }
     }
 }
