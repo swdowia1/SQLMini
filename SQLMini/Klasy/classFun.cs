@@ -92,20 +92,22 @@ ORDER BY
     name;";
                 // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
                 DataTable dtProc = classData.WypelnijDane(zapproc, pol);
-
-                foreach (DataRow item in dtProc.Rows)
+                if (dtProc != null)
                 {
-                    string tabela = item["Wartosc"].ToString();
-                    Query q = new Query()
+                    foreach (DataRow item in dtProc.Rows)
                     {
-                        POL = pol,
-                        QueryText = tabela,
-                        Name = tabela,
-                        Ilosc =0,
-                        LiczbaKolumn = 0,
-                        Typ="Procedura"
-                    };
-                    wynik.Add(q);
+                        string tabela = item["Wartosc"].ToString();
+                        Query q = new Query()
+                        {
+                            POL = pol,
+                            QueryText = tabela,
+                            Name = tabela,
+                            Ilosc = 0,
+                            LiczbaKolumn = 0,
+                            Typ = "Procedura"
+                        };
+                        wynik.Add(q);
+                    }
                 }
                 string[] pliksql = Directory.GetFiles(katalogsql, "*.sql");
                 foreach (string p in pliksql)

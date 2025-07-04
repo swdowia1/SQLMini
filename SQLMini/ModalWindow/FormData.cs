@@ -222,14 +222,20 @@ namespace SQLMini.ModalWindow
         {
             string filename = classConst.KatalogCSV + "test.csv";
             string filenameorg = classConst.KatalogCSV + _selectedRow.Name.Replace(" ","_") + ".csv";
+            if (!Directory.Exists(classConst.KatalogCSV))
+            {
+                Directory.CreateDirectory(classConst.KatalogCSV);
+            }
+
             dg.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             // Select all the cells
             dg.SelectAll();
             // Copy selected cells to DataObject
             DataObject dataObject = dg.GetClipboardContent();
+            string content = dataObject.GetText(TextDataFormat.CommaSeparatedValue).Replace(",", ";");
             // Get the text of the DataObject, and serialize it to a file
-            File.WriteAllText(filename, dataObject.GetText(TextDataFormat.CommaSeparatedValue));
-            File.WriteAllText(filenameorg, dataObject.GetText(TextDataFormat.CommaSeparatedValue));
+            File.WriteAllText(filename, content);
+            File.WriteAllText(filenameorg,content);
             dg.ClearSelection();
 
             if (classMessage.Question("Czy otworzyc edytor"))
