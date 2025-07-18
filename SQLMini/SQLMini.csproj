@@ -77,6 +77,7 @@
     <Compile Include="Klasy\classFun.cs" />
     <Compile Include="Klasy\classLog.cs" />
     <Compile Include="Klasy\classMessage.cs" />
+    <Compile Include="Klasy\Dane.cs" />
     <Compile Include="Klasy\Query.cs" />
     <Compile Include="Klasy\Server.cs" />
     <Compile Include="ModalWindow\CreatorConn.cs">
@@ -91,6 +92,12 @@
     <Compile Include="ModalWindow\FormData.Designer.cs">
       <DependentUpon>FormData.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModalWindow\QueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModalWindow\QueryForm.Designer.cs">
+      <DependentUpon>QueryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -101,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModalWindow\FormData.resx">
       <DependentUpon>FormData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModalWindow\QueryForm.resx">
+      <DependentUpon>QueryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

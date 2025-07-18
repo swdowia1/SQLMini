@@ -1,14 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace SQLMini.Klasy
 {
     public class classFun
     {
+        public static string UsunRekordy(string connectionString, string zapytanieSQL)
+        {
+            using (SqlConnection pol = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    pol.Open();
+                    using (SqlCommand cmd = new SqlCommand(zapytanieSQL, pol))
+                    {
+                        int liczbaUsunietych = cmd.ExecuteNonQuery();
+                        return $"Usunięto {liczbaUsunietych} rekord(ów).";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Błąd: " + ex.Message);
+                    return "Wystąpił błąd podczas usuwania rekordów: " + ex.Message;
+                }
+            }
+        }
         public static List<Server> SerwerList()
         {
             List<Server> wynik = new List<Server>();
@@ -41,6 +63,21 @@ namespace SQLMini.Klasy
         {
             return s + "\\pol.txt";
         }
+        internal static List<string> TabeleTylko(string pol)
+        {
+            List<string> result= new List<string>();
+            //SCHEMA_NAME(A.schema_id) + '.' +
+            string zap = @"SELECT TABLE_NAME 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_TYPE = 'BASE TABLE' order by 1";
+            // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
+            DataTable dt = classData.WypelnijDane(zap, pol);
+            List<string> listaTabel = dt.AsEnumerable()
+    .Select(r => r.Field<string>("TABLE_NAME"))
+    .ToList();
+
+            return listaTabel;
+        }
         /// <summary>
         /// Lista tabel w wybranej bazie
         /// </summary>
@@ -63,26 +100,27 @@ WHERE A.type = 'U'
 GROUP BY A.schema_id, A.Name, A.object_id
 ORDER BY A.Name";
                 // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
-                DataTable dt = classData.WypelnijDane(zap, pol);
-            
+                DataTable dt = classData.WypelnijDane(zap,pol,false);
 
-               
-                foreach (DataRow item in dt.Rows)
+                if (dt != null)
                 {
-                    string tabela = item["Tabela"].ToString();
-                    Query q = new Query()
+
+                    foreach (DataRow item in dt.Rows)
                     {
-                        POL = pol,
-                        QueryText = "select top 1000 * from [" + tabela + "]",
-                        Name = tabela,
-                        Ilosc = int.Parse(item["Ilosc"].ToString()),
-                        LiczbaKolumn = int.Parse(item["LiczbaKolumn"].ToString()),
-                        Typ="Tabela"
+                        string tabela = item["Tabela"].ToString();
+                        Query q = new Query()
+                        {
+                            POL = pol,
+                            QueryText = "select top 1000 * from [" + tabela + "]",
+                            Name = tabela,
+                            Ilosc = int.Parse(item["Ilosc"].ToString()),
+                            LiczbaKolumn = int.Parse(item["LiczbaKolumn"].ToString()),
+                            Typ = "Tabela"
 
-                    };
-                    wynik.Add(q);
+                        };
+                        wynik.Add(q);
+                    }
                 }
-
                 string zapproc = @"SELECT 
     name AS ProcedureName
 FROM 
@@ -128,6 +166,7 @@ ORDER BY
             {
 
                 classLog.LogError(ee, "classFun.Tabele");
+                throw ee; // Rzucenie wyjątku dalej, aby można było go obsłużyć w wywołującym kodzie
 
 
             }

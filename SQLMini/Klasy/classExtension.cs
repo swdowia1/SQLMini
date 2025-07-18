@@ -31,7 +31,16 @@ namespace SQLMini.Klasy
 
         public static T CurrentRow<T>(this DataGridView dg)
         {
-            return (T)(dg.CurrentRow.DataBoundItem);
+            object item = dg.CurrentRow?.DataBoundItem;
+
+            if (item is T)
+                return (T)item;
+
+            // Gdy np. string, a chcemy tylko T == string
+            if (typeof(T) == typeof(string) && item != null)
+                return (T)(object)item.ToString();
+
+            return default;
 
         }
     }

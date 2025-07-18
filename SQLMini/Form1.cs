@@ -62,13 +62,23 @@ namespace SQLMini
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            try
+            {
+
+           
             SelectedRow = dataGridView1.CurrentRow<Server>();
             classMessage.PopUp("wybrano " + SelectedRow.Opis);
             List<Query> zapytania = classFun.Tabele(SelectedRow.Pol,SelectedRow.KatalogSQL);
             TextForm(zapytania.Count);
             dgQuery.DataSource = zapytania;
             dOrg = zapytania;
-            dgQuery.Columns[0].Visible = false;
+            dgQuery.Columns[0].Visible = false; 
+            }
+            catch (Exception ex)
+            {
+
+                classMessage.Show(ex.Message);
+            }
         }
 
         private void btnSearch_Click(object sender, System.EventArgs e)
@@ -161,6 +171,14 @@ namespace SQLMini
             File.WriteAllText("dane.txt", sb.ToString());
             Process.Start(classConfig.edytor, "dane.txt");
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (QueryForm form = new QueryForm(SelectedRow))
+            {
+                form.ShowDialog(this);
+            } //
         }
     }
 }

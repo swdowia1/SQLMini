@@ -6,7 +6,11 @@ namespace SQLMini.Klasy
 {
     internal class classData
     {
-        public static DataTable WypelnijDane(string procedura, string pol, bool showerror = false)
+        public static DataTable WypelnijDane(Query q)
+        {
+            return WypelnijDane(q.QueryText, q.POL);
+        }
+        public static DataTable WypelnijDane(string procedura, string pol, bool pivot=true)
         {
             try
             {
@@ -26,10 +30,10 @@ namespace SQLMini.Klasy
                     dataAdapter.Fill(dataSet);
                     var dane = dataSet.Tables[0];
 
-                    if (dane.Rows.Count > 1)
+                    if (dane.Rows.Count > 1|| pivot==false)
                         return dane;
 
-                    if (dane.Rows.Count == 1)
+                    if (dane.Rows.Count == 1 &&pivot)
                     {
                         DataTable MyTable = new DataTable();
                         MyTable.Columns.Add("Id", typeof(int));
@@ -49,11 +53,10 @@ namespace SQLMini.Klasy
             }
             catch (Exception ee)
             {
-                if (showerror)
-                {
-                    classMessage.ShowError(ee.Message);
-                }
                 classLog.LogError(ee, "classFun.SyberiaZapytanie");
+                throw ee; // Rzucenie wyjątku dalej, aby można było go obsłużyć w wywołującym kodzie
+
+     
                 return null;
             }
         }
@@ -106,9 +109,6 @@ namespace SQLMini.Klasy
             }
         }
 
-        internal static DataTable WypelnijDane(Query selectedRow)
-        {
-            return WypelnijDane(selectedRow.QueryText, selectedRow.POL);
-        }
+       
     }
 }
