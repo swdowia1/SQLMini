@@ -38,6 +38,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnConnProperty = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.nazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ilosc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.liczbakolumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.def = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgQuery)).BeginInit();
             this.SuspendLayout();
@@ -63,12 +67,20 @@
             // 
             // dgQuery
             // 
+            this.dgQuery.AllowUserToAddRows = false;
+            this.dgQuery.AllowUserToDeleteRows = false;
             this.dgQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgQuery.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgQuery.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nazwa,
+            this.ilosc,
+            this.liczbakolumn,
+            this.def});
             this.dgQuery.Location = new System.Drawing.Point(277, 55);
             this.dgQuery.Name = "dgQuery";
+            this.dgQuery.ReadOnly = true;
             this.dgQuery.Size = new System.Drawing.Size(750, 383);
             this.dgQuery.TabIndex = 1;
             this.dgQuery.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgQuery_CellClick);
@@ -139,6 +151,33 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // nazwa
+            // 
+            this.nazwa.DataPropertyName = "Name";
+            this.nazwa.HeaderText = "Nazwa tabeli";
+            this.nazwa.Name = "nazwa";
+            this.nazwa.ReadOnly = true;
+            // 
+            // ilosc
+            // 
+            this.ilosc.DataPropertyName = "Ilosc";
+            this.ilosc.HeaderText = "Liczba wierszy";
+            this.ilosc.Name = "ilosc";
+            this.ilosc.ReadOnly = true;
+            // 
+            // liczbakolumn
+            // 
+            this.liczbakolumn.DataPropertyName = "LiczbaKolumn";
+            this.liczbakolumn.HeaderText = "Liczba kolumn";
+            this.liczbakolumn.Name = "liczbakolumn";
+            this.liczbakolumn.ReadOnly = true;
+            // 
+            // def
+            // 
+            this.def.HeaderText = "Definicja";
+            this.def.Name = "def";
+            this.def.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,6 +214,10 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnConnProperty;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nazwa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ilosc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn liczbakolumn;
+        private System.Windows.Forms.DataGridViewButtonColumn def;
     }
 }
 

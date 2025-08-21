@@ -27,7 +27,7 @@ namespace SQLMini
             this.Text = classConfig.context;
             classLog.LogInfo(this.Text);
             dataGridView1.SetStyle(false);
-            dgQuery.SetStyle();
+           dgQuery.SetStyle(false);
             dataGridView1.DataSource = serwery;
 
         }
@@ -52,6 +52,16 @@ namespace SQLMini
         {
             var SelectedRow = dgQuery.CurrentRow<Query>();
 
+            if (e.ColumnIndex == dgQuery.Columns["def"].Index && e.RowIndex >= 0) // Sprawdź czy kliknięto w kolumnę "Akcje"
+            {
+                using (DefTable form = new DefTable(SelectedRow))
+                {
+                    var result = form.ShowDialog(this);
+                   
+                } // 
+                return;
+            }
+
             using (FormData form = new FormData(SelectedRow))
             {
                 form.ShowDialog(this);
@@ -70,7 +80,7 @@ namespace SQLMini
             TextForm(zapytania.Count);
             dgQuery.DataSource = zapytania;
             dOrg = zapytania;
-            dgQuery.Columns[0].Visible = false; 
+           // dgQuery.Columns[0].Visible = false; 
             }
             catch (Exception ex)
             {
