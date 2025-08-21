@@ -25,7 +25,7 @@ namespace SQLMini.Klasy
             dg.AllowUserToDeleteRows = false;
             dg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(192, 255, 230);
-           // dg.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+         
             dg.ReadOnly = true;
         }
 

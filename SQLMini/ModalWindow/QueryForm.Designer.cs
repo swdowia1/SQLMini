@@ -32,6 +32,7 @@
             this.rt = new System.Windows.Forms.RichTextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnExecute = new System.Windows.Forms.Button();
+            this.btnUpdateGeneruj = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,9 +56,9 @@
             // 
             this.btnDelete.Location = new System.Drawing.Point(192, 12);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(179, 23);
             this.btnDelete.TabIndex = 2;
-            this.btnDelete.Text = "Usun";
+            this.btnDelete.Text = "generuj \"Usuń\"";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -71,11 +72,22 @@
             this.btnExecute.UseVisualStyleBackColor = true;
             this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
             // 
+            // btnUpdateGeneruj
+            // 
+            this.btnUpdateGeneruj.Location = new System.Drawing.Point(377, 12);
+            this.btnUpdateGeneruj.Name = "btnUpdateGeneruj";
+            this.btnUpdateGeneruj.Size = new System.Drawing.Size(179, 23);
+            this.btnUpdateGeneruj.TabIndex = 4;
+            this.btnUpdateGeneruj.Text = "generuj \"Update\"";
+            this.btnUpdateGeneruj.UseVisualStyleBackColor = true;
+            this.btnUpdateGeneruj.Click += new System.EventHandler(this.btnUpdateGeneruj_Click);
+            // 
             // QueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnUpdateGeneruj);
             this.Controls.Add(this.btnExecute);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.rt);
@@ -93,5 +105,6 @@
         private System.Windows.Forms.RichTextBox rt;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnExecute;
+        private System.Windows.Forms.Button btnUpdateGeneruj;
     }
 }

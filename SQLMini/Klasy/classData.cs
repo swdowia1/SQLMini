@@ -23,8 +23,7 @@ namespace SQLMini.Klasy
                     else
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Tu możesz dodać parametry, np.:
-                    // cmd.Parameters.AddWithValue("@Id", 123);
+                  
 
                     DataSet dataSet = new DataSet();
                     dataAdapter.Fill(dataSet);

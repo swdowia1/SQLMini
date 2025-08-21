@@ -11,7 +11,7 @@ namespace SQLMini.Klasy
 {
     public class classFun
     {
-        public static string UsunRekordy(string connectionString, string zapytanieSQL)
+        public static string WykonajZapytanie(string connectionString, string zapytanieSQL)
         {
             using (SqlConnection pol = new SqlConnection(connectionString))
             {
@@ -66,11 +66,10 @@ namespace SQLMini.Klasy
         internal static List<string> TabeleTylko(string pol)
         {
             List<string> result= new List<string>();
-            //SCHEMA_NAME(A.schema_id) + '.' +
+            
             string zap = @"SELECT TABLE_NAME 
 FROM INFORMATION_SCHEMA.TABLES 
 WHERE TABLE_TYPE = 'BASE TABLE' order by 1";
-            // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
             DataTable dt = classData.WypelnijDane(zap, pol);
             List<string> listaTabel = dt.AsEnumerable()
     .Select(r => r.Field<string>("TABLE_NAME"))
@@ -99,8 +98,7 @@ LEFT JOIN sys.columns C ON A.object_id = C.object_id
 WHERE A.type = 'U'
 GROUP BY A.schema_id, A.Name, A.object_id
 ORDER BY A.Name";
-                // DataTable dt = classData.WypelnijDane("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", pol);
-                DataTable dt = classData.WypelnijDane(zap,pol,false);
+                 DataTable dt = classData.WypelnijDane(zap,pol,false);
 
                 if (dt != null)
                 {

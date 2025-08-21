@@ -29,7 +29,7 @@ namespace SQLMini.ModalWindow
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            Dane aa = dgTable.CurrentRow<Dane>();
+                Dane aa = dgTable.CurrentRow<Dane>();
 
             rt.Text = "delete from " +aa.Wartosc;
 
@@ -39,8 +39,19 @@ namespace SQLMini.ModalWindow
 
         private void btnExecute_Click(object sender, EventArgs e)
         {
-            string res=classFun.UsunRekordy(_server.Pol, rt.Text);
+            string res=classFun.WykonajZapytanie(_server.Pol, rt.Text);
+            classMessage.Show(res);
             this.Text = res;
+        }
+
+        private void btnUpdateGeneruj_Click(object sender, EventArgs e)
+        {
+            Dane aa = dgTable.CurrentRow<Dane>();
+
+            rt.Text = "Update " + aa.Wartosc+" set ";
+
+
+            this.Text = rt.Text;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace SQLMini.Klasy
     public static class classConfig
     {
 
-        //context
+ 
         public static string context
         {
             get { return ConfigurationManager.AppSettings["context"]; }
